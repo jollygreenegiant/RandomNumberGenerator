@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jggdevelopment.randomnumbergenerator.NumberPicker"
+    android:nestedScrollingEnabled="false">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero"
+            android:layout_centerHorizontal="true"
+            android:textSize="100sp"
+            tools:text="0" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/number"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/input"
+            android:focusableInTouchMode="true">
+            <EditText
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="12dp"
+                android:hint="@string/low"
+                android:textSize="16sp"
+                android:id="@+id/low"
+                android:textAlignment="center"
+                android:inputType="number"/>
+
+            <EditText
+                android:layout_toEndOf="@+id/low"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="@string/high"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                android:inputType="number"
+                android:id="@+id/high"
+                />
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/random"
+            android:layout_below="@+id/input"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:textSize="36sp"
+            android:id="@+id/randomButton"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="#FFFFFF"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remove_ads"
+            android:textSize="16sp"
+            android:layout_below="@+id/randomButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:id="@+id/remove_ads"/>
+    </RelativeLayout>
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-7613732164066601/4220620732">
+    </com.google.android.gms.ads.AdView>
+
+
+
+</RelativeLayout>

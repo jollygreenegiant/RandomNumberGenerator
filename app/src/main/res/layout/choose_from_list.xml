@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChooseFromList">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/add_items"
+            android:layout_centerHorizontal="true"
+            android:focusableInTouchMode="true">
+            <EditText
+                android:id="@+id/enter_list_item"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_list_item_hint"
+                android:gravity="center"
+                android:inputType="text"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add"
+                android:id="@+id/add_button"
+                android:layout_marginStart="12dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="36dp"
+            android:id="@+id/list_items"
+            android:layout_below="@id/add_items"
+            android:layout_centerHorizontal="true"
+            android:fadeScrollbars="false">
+
+        </ListView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/select_button"
+            android:text="@string/select"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_below="@id/list_items"
+            android:layout_centerHorizontal="true"
+            android:textColor="#FFFFFF"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selected_item"
+            android:layout_below="@id/select_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:textSize="48sp"/>
+    </RelativeLayout>
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-7613732164066601/4220620732">
+    </com.google.android.gms.ads.AdView>
+
+</RelativeLayout>

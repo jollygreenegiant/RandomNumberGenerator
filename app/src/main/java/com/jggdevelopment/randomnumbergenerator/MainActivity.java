@@ -1,212 +1,123 @@
 package com.jggdevelopment.randomnumbergenerator;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import com.anjlab.android.iab.v3.BillingProcessor;
-import com.anjlab.android.iab.v3.TransactionDetails;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-
-import java.util.Locale;
-import java.util.Random;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView number;
+    /**
+     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * fragments for each of the sections. We use a
+     * {@link FragmentPagerAdapter} derivative, which will keep every
+     * loaded fragment in memory. If this becomes too memory intensive, it
+     * may be best to switch to a
+     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+    private SectionsPagerAdapter mSectionsPagerAdapter;
 
-    private SensorManager mSensorManager;
-    private Sensor mAccelerometer;
-    private ShakeDetector mShakeDetector;
-    private Button randomButton;
-    private AdView mAdView;
-    private BillingProcessor bp;
-    private static final String LICENSE_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3UetPcIHYa8jiQycvSANUNeefN51RKcgocZKCJ8387LAjqrEkEXkdTsjXujCkPZz8lZ9yP5wAuxrXagU45lDSQ8VdBn0OQSfVMhHdEe8xpMxktZBglGBhUbg3fvuZ4EeDPFMS9/+1SvzhP21J0gme5/iyj1kwNVnbPxDUYtK0j3JmuLcFOlgIefrFrlhgUHP1kDb/lzqnyxTSGApjzl0bUEIbi0fIh6OsbG03OIhjdXV6qJiCTDtHpUHY9jO/2Il6PdHzDB1g5mn1N9dPoRLAmVF1VUsEDSJ4W9/08KKQlAeoEEum0O7qnjyXWAbUfFukGavXHE8hPDJjDXvPhbJvQIDAQAB";
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    private ViewPager mViewPager;
+    private FirebaseAnalytics firebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button removeAds = findViewById(R.id.remove_ads);
-        randomButton = findViewById(R.id.randomButton);
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        assert mSensorManager != null;
-        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mShakeDetector = new ShakeDetector();
-        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
-            @Override
-            public void onShake(int count) {
-                if (validNumbers()) {
-                    random();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Invalid numbers, try again", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        MobileAds.initialize(this, "ca-app-pub-7613732164066601~3004699844");
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        bp = new BillingProcessor(this, LICENSE_KEY, new BillingProcessor.IBillingHandler() {
-            @Override
-            public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
-                Toast.makeText(MainActivity.this, "Thanks for your support!", Toast.LENGTH_SHORT).show();
-                mAdView.setVisibility(View.GONE);
-            }
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
-            @Override
-            public void onPurchaseHistoryRestored() {
-                if (!bp.listOwnedProducts().isEmpty()) {
-                    mAdView.setVisibility(View.GONE);
-                }
-            }
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
-            @Override
-            public void onBillingError(int errorCode, @Nullable Throwable error) {
-                Toast.makeText(MainActivity.this, "An error occurred", Toast.LENGTH_SHORT).show();
-            }
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-            @Override
-            public void onBillingInitialized() {
-
-            }
-        });
-        bp.loadOwnedPurchasesFromGoogle();
-        if (!bp.listOwnedProducts().isEmpty()) {
-            mAdView.setVisibility(View.GONE);
-            removeAds.setVisibility(View.GONE);
-        }
     }
+
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mSensorManager.registerListener(mShakeDetector, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
-    }
-
-    @Override
-    public void onPause() {
-        mSensorManager.unregisterListener(mShakeDetector);
-        super.onPause();
-    }
-
-    public void randomButton(View view) throws InterruptedException {
-        if (validNumbers()) {
-            random();
-        } else {
-            Toast.makeText(getApplicationContext(), "Invalid numbers, try again", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public boolean validNumbers() {
-        EditText lowest = findViewById(R.id.low);
-        EditText highest = findViewById(R.id.high);
-        int low;
-        int high;
-        try {
-            low = Integer.parseInt(lowest.getText().toString());
-            high = Integer.parseInt(highest.getText().toString());
-            if (low >= high) {
-                lowest.setHint("Low");
-                lowest.setText("");
-                highest.setHint("High");
-                highest.setText("");
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            lowest.setHint("Low");
-            lowest.setText("");
-            highest.setHint("High");
-            highest.setText("");
-            return false;
-        }
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
-    public void random() {
-        randomButton.setEnabled(false);
-        number = findViewById(R.id.number);
-
-        EditText lowest = findViewById(R.id.low);
-        EditText highest = findViewById(R.id.high);
-
-        int low = Integer.parseInt(lowest.getText().toString());
-        int high = Integer.parseInt(highest.getText().toString());
-
-        RandomNumberTask r = new RandomNumberTask();
-        r.execute(low, high);
-    }
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
-            super.onActivityResult(requestCode, resultCode, data);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onDestroy() {
-        if (bp != null) {
-            bp.release();
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
         }
-        super.onDestroy();
-    }
 
-    public void removeAds(View view) {
-        bp.purchase(MainActivity.this, "com.jggdevelopment.randomnumbergenerator.removeads");
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class RandomNumberTask extends AsyncTask<Integer, Integer, Integer> {
-
+        Bundle bundle;
 
         @Override
-        protected Integer doInBackground(Integer... ints) {
-            Integer random = 0;
+        public Fragment getItem(int position) {
+           switch (position) {
+               case 0:
+                   return new NumberPicker();
+               case 1:
+                   return new ChooseFromList();
+               default:
+                   return null;
+           }
+        }
 
-            for (int i = 0; i < 20; i++) {
-                try {
-                    Thread.sleep(75);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Random rand = new Random();
-                random = rand.nextInt((ints[1] - ints[0]) + 1) + ints[0];
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 2;
+        }
 
-                publishProgress(random);
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Number";
+                case 1:
+                    return "List";
+                default:
+                    return null;
             }
-
-            return random;
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            randomButton.setEnabled(true);
-            number.setText(result.toString());
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... progress) {
-            number.setText(progress[0].toString());
         }
     }
 }
-
