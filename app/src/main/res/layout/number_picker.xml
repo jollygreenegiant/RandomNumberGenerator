@@ -58,9 +58,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="24dp"
             android:textSize="36sp"
-            android:id="@+id/randomButton"
-            android:backgroundTint="@color/colorPrimary"
-            android:textColor="#FFFFFF"/>
+            android:id="@+id/randomButton"/>
 
         <Button
             android:layout_width="wrap_content"
