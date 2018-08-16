@@ -2,8 +2,31 @@
 <resources>
     <color name="colorPrimary">#4caf50</color>
     <color name="colorPrimaryDark">#388e3c</color>
-    <color name="colorAccent">#76ff03</color>
-    <color name="caribbean_primary_light">#03a9f4</color>
-    <color name="caribbean_primary">#0288d1</color>
-    <color name="caribbean_accent">#76ff03</color>
+    <color name="colorAccent">#03A9F4</color>
+    <color name="textColorPrimary">#212121</color>
+    <color name="textColorSecondary">#757575</color>
+
+    <color name="christmasColorPrimary">#4caf50</color>
+    <color name="christmasColorPrimaryDark">#388e3c</color>
+    <color name="christmasColorAccent">#ff5252</color>
+    <color name="christmasTextColorPrimary">#212121</color>
+    <color name="christmasTextColorSecondary">#757575</color>
+
+    <color name="obColorPrimary">#ff5722</color>
+    <color name="obColorPrimaryDark">#e64a19</color>
+    <color name="obColorAccent">#03a9f4</color>
+    <color name="obTextColorPrimary">#212121</color>
+    <color name="obTextColorSecondary">#757575</color>
+
+    <color name="rbColorPrimary">#f44336</color>
+    <color name="rbColorPrimaryDark">#d32f2f</color>
+    <color name="rbColorAccent">#448aff</color>
+    <color name="rbTextColorPrimary">#212121</color>
+    <color name="rbTextColorSecondary">#757575</color>
+
+    <color name="darkColorPrimary">#212121</color>
+    <color name="darkColorPrimaryDark">#000000</color>
+    <color name="darkColorAccent">#448aff</color>
+    <color name="darkTextColorPrimary">#ffffff</color>
+    <color name="darkTextColorSecondary">#999999</color>
 </resources>

@@ -13,4 +13,14 @@
     <string name="random">RANDOM</string>
     <string name="remove_ads">Remove ads</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="share">Share</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string-array name="themes">
+        <item>Default</item>
+        <item>Dark</item>
+        <item>Red/Green</item>
+        <item>Orange/Light Blue</item>
+        <item>Red/Blue</item>
+    </string-array>
 </resources>

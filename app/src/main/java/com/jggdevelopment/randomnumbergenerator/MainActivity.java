@@ -1,13 +1,16 @@
 package com.jggdevelopment.randomnumbergenerator;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -31,17 +34,31 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private FirebaseAnalytics firebaseAnalytics;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        setTheme(R.style.CaribbeanSea);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        String themeName = pref.getString("theme", "Default");
+        if (themeName.equals("Default")) {
+            setTheme(R.style.DefaultTheme);
+        } else if (themeName.equals("Dark")) {
+            setTheme(R.style.Dark);
+        } else if (themeName.equals("Red/Green")) {
+            setTheme(R.style.RedGreen);
+        } else if (themeName.equals("Orange/Light Blue")) {
+            setTheme(R.style.OrangeBlue);
+        } else if (themeName.equals("Red/Blue")) {
+            setTheme(R.style.RedBlue);
+        } else {
+            setTheme(R.style.DefaultTheme);
+        }
+
+        setContentView(R.layout.activity_main);
 
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -74,10 +91,32 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivityForResult(intent, 1);
+        } else if (id == R.id.action_share) {
+
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Resources.Theme getTheme() {
+        Resources.Theme theme = super.getTheme();
+        theme.applyStyle(R.style.DefaultTheme, true);
+        return theme;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == SettingsFragment.RESULT_CODE_THEME_UPDATED) {
+                finish();
+                startActivity(getIntent());
+                return;
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
