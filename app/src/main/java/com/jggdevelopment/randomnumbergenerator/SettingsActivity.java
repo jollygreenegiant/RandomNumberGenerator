@@ -25,6 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
             setTheme(R.style.RedBlue);
         }
 
+        
         getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SettingsFragment())
                 .commit();

@@ -21,6 +21,9 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/add_list_item_hint"
+                android:textColor="?android:textColorPrimary"
+                android:textColorHint="?android:textColorSecondary"
+                android:backgroundTint="?colorAccent"
                 android:gravity="center"
                 android:inputType="text"
                 />
@@ -28,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/add"
+                android:backgroundTint="?colorAccent"
                 android:id="@+id/add_button"
                 android:layout_marginStart="12dp"/>
         </LinearLayout>
@@ -48,6 +52,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/select_button"
             android:text="@string/select"
+            android:backgroundTint="?colorAccent"
             android:layout_below="@id/list_items"
             android:layout_centerHorizontal="true"/>
 
@@ -55,6 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/selected_item"
+            android:textColor="?android:textColorPrimary"
             android:layout_below="@id/select_button"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="12dp"

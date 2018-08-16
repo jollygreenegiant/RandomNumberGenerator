@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         String themeName = pref.getString("theme", "Default");
         if (themeName.equals("Default")) {
@@ -55,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             setTheme(R.style.DefaultTheme);
         }
 
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -98,13 +97,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public Resources.Theme getTheme() {
-        Resources.Theme theme = super.getTheme();
-        theme.applyStyle(R.style.DefaultTheme, true);
-        return theme;
     }
 
     @Override
