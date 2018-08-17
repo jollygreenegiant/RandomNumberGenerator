@@ -22,6 +22,7 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -37,7 +38,7 @@ public class ChooseFromList extends Fragment {
     private AdView adView;
     private BillingProcessor bp;
     private static final String LICENSE_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3UetPcIHYa8jiQycvSANUNeefN51RKcgocZKCJ8387LAjqrEkEXkdTsjXujCkPZz8lZ9yP5wAuxrXagU45lDSQ8VdBn0OQSfVMhHdEe8xpMxktZBglGBhUbg3fvuZ4EeDPFMS9/+1SvzhP21J0gme5/iyj1kwNVnbPxDUYtK0j3JmuLcFOlgIefrFrlhgUHP1kDb/lzqnyxTSGApjzl0bUEIbi0fIh6OsbG03OIhjdXV6qJiCTDtHpUHY9jO/2Il6PdHzDB1g5mn1N9dPoRLAmVF1VUsEDSJ4W9/08KKQlAeoEEum0O7qnjyXWAbUfFukGavXHE8hPDJjDXvPhbJvQIDAQAB";
-
+    private FirebaseAnalytics firebaseAnalytics;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
         View rootView = inflater.inflate(R.layout.choose_from_list, container, false);
@@ -47,6 +48,7 @@ public class ChooseFromList extends Fragment {
         addButton = rootView.findViewById(R.id.add_button);
         selectButton = rootView.findViewById(R.id.select_button);
         selectedItem = rootView.findViewById(R.id.selected_item);
+        firebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +137,12 @@ public class ChooseFromList extends Fragment {
 
         RandomStringTask random = new RandomStringTask();
         random.execute(listItems.toArray(new String[0]));
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Selected from list");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Selected from list");
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "button");
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
     @SuppressLint("StaticFieldLeak")

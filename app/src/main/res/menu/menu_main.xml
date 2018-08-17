@@ -4,7 +4,7 @@
     tools:context="com.jggdevelopment.randomnumbergenerator.MainActivity">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="2"
+        android:orderInCategory="4"
         android:title="@string/action_settings"
         app:showAsAction="never" />
 
@@ -12,5 +12,20 @@
         android:id="@+id/action_share"
         android:orderInCategory="1"
         android:title="@string/share"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        app:actionProviderClass="android.support.v7.widget.ShareActionProvider" />
+
+    <item
+        android:id="@+id/action_rate"
+        android:orderInCategory="2"
+        android:title="Rate"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_contact"
+        android:orderInCategory="3"
+        android:title="Contact"
+        app:showAsAction="never" />
+
+
 </menu>

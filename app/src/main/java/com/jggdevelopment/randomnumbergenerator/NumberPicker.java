@@ -62,6 +62,11 @@ public class NumberPicker extends Fragment {
             public void onClick(View v) {
                 try {
                     randomButton(v);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Click to randomize");
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Click to randomize");
+                    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "button");
+                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -76,6 +81,12 @@ public class NumberPicker extends Fragment {
             @Override
             public void onShake(int count) {
                 if (validNumbers()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Shake to randomize");
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Shake to randomize");
+                    bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "button");
+                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
                     random();
                 } else {
                     Toast.makeText(getContext(), "Invalid numbers, try again", Toast.LENGTH_LONG).show();

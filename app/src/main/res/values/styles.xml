@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/defaultColorAccent</item>
         <item name="android:textColorPrimary">@color/defaultTextColorPrimary</item>
         <item name="android:textColorSecondary">@color/defaultTextColorSecondary</item>
+        <item name="buttonTextColor">@android:color/white</item>
+        <item name="backgroundColor">@android:color/white</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
@@ -21,15 +23,17 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="PreferenceThemeOverlay" parent="PreferenceThemeOverlay.v14.Material">
-        <item name="android:background">?android:colorPrimary</item>
+        <item name="android:background">?backgroundColor</item>
     </style>
 
     <style name="RedGreen" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/christmasColorPrimary</item>
         <item name="colorPrimaryDark">@color/christmasColorPrimaryDark</item>
         <item name="colorAccent">@color/christmasColorAccent</item>
+        <item name="buttonTextColor">@color/christmasTextColorPrimary</item>
         <item name="android:textColorPrimary">@color/christmasTextColorPrimary</item>
         <item name="android:textColorSecondary">@color/christmasTextColorSecondary</item>
+        <item name="backgroundColor">@android:color/white</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
@@ -38,16 +42,20 @@
         <item name="colorPrimaryDark">@color/obColorPrimaryDark</item>
         <item name="colorAccent">@color/obColorAccent</item>
         <item name="android:textColorPrimary">@color/obTextColorPrimary</item>
+        <item name="buttonTextColor">@android:color/white</item>
         <item name="android:textColorSecondary">@color/obTextColorSecondary</item>
+        <item name="backgroundColor">@android:color/white</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
     <style name="RedBlue" parent="Base.Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/obColorPrimary</item>
-        <item name="colorPrimaryDark">@color/obColorPrimaryDark</item>
-        <item name="colorAccent">@color/obColorAccent</item>
-        <item name="android:textColorPrimary">@color/obTextColorPrimary</item>
-        <item name="android:textColorSecondary">@color/obTextColorSecondary</item>
+        <item name="colorPrimary">@color/rbColorPrimary</item>
+        <item name="colorPrimaryDark">@color/rbColorPrimaryDark</item>
+        <item name="colorAccent">@color/rbColorAccent</item>
+        <item name="android:textColorPrimary">@color/rbTextColorPrimary</item>
+        <item name="buttonTextColor">@android:color/white</item>
+        <item name="android:textColorSecondary">@color/rbTextColorSecondary</item>
+        <item name="backgroundColor">@android:color/white</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
@@ -55,8 +63,10 @@
         <item name="colorPrimary">@color/darkColorPrimary</item>
         <item name="colorPrimaryDark">@color/darkColorPrimaryDark</item>
         <item name="colorAccent">@color/darkColorAccent</item>
+        <item name="buttonTextColor">@android:color/white</item>
         <item name="android:textColorPrimary">@color/darkTextColorPrimary</item>
         <item name="android:textColorSecondary">@color/darkTextColorSecondary</item>
+        <item name="backgroundColor">@color/darkColorPrimary</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 

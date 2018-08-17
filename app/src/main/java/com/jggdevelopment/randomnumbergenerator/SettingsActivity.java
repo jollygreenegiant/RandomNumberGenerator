@@ -19,13 +19,13 @@ public class SettingsActivity extends AppCompatActivity {
             setTheme(R.style.Dark);
         } else if (themeName.equals("Red/Green")) {
             setTheme(R.style.RedGreen);
-        } else if (themeName.equals("Orange/Blue")) {
+        } else if (themeName.equals("Orange/Light Blue")) {
             setTheme(R.style.OrangeBlue);
         } else if (themeName.equals("Red/Blue")) {
             setTheme(R.style.RedBlue);
         }
 
-        
+
         getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SettingsFragment())
                 .commit();
